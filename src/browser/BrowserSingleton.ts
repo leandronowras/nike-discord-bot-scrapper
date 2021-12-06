@@ -91,9 +91,9 @@ export class BrowserSingleton {
 }
 }
 
-(async () => {
-  const test1 = BrowserSingleton.getInstance()
-  await test1.init()
-  await test1.createPage("http://localhost:3000")
-  console.log(test1.html)
-})()
+// (async () => {
+//   const test1 = BrowserSingleton.getInstance()
+//   await test1.init()
+//   await test1.createPage("http://localhost:3000")
+//   console.log(test1.html)
+// })()

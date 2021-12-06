@@ -1,31 +1,15 @@
-// ideia: abrir puppeter, nao fechar e ficar dando refresh na pagina
-import puppeteer from 'puppeteer'
-import cheerio from 'cheerio'
+// fazer o monitor e depois o observer e depois ui do discord
+
+import { BrowserSingleton } from "./browser/BrowserSingleton";
 
 export class Monitor {
-  puppeteer: typeof puppeteer
+  constructor(public html: any) {}
 
-  constructor(readonly url: string, public html: string = '') {
-  this.puppeteer = puppeteer
-    this.url = url
+  async update(page: any) {
+    await page.reload()
+
+    if (this.html !== await page.content()){
+      this.html = await page.content()
+    }
   }
-  
-  async loadPage() {
-    const browser = await puppeteer.launch({ headless: false })
-    const page = await browser.newPage()
-    await page.goto(this.url)
-  
-    const html = await page.content()
-
-    const $ = cheerio.load(html);
-
-    this.html = $.html()
-
-    return $.html()
-  }
-
-  getHtml() {
-
-  }
-
 }
