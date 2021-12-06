@@ -1,4 +1,4 @@
-import { Monitor } from "../src/Monitor"
+import { Monitor } from "../src/back-end/Monitor"
 import puppeteer from 'puppeteer'
 
 // ok
