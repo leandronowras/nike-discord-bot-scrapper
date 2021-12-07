@@ -7,7 +7,6 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const BrowserSingleton_1 = require("./browser/BrowserSingleton");
 const Scrapper_1 = require("./Scrapper");
-let status = 'closed';
 (async () => {
     const nike = BrowserSingleton_1.BrowserSingleton.getInstance();
     await nike.init();
@@ -15,8 +14,8 @@ let status = 'closed';
     async function nikeNewArrivals() {
         const scrapper = new Scrapper_1.NikeScrapper(await nikePage.content());
         const data = scrapper.getNewArrivals();
-        fs_1.default.writeFileSync(path_1.default.resolve(__dirname, './../../../data/nikeNewArrivals.json'), JSON.stringify(data));
+        fs_1.default.writeFileSync(path_1.default.join(__dirname, '/endpoints', '/nikeNewArrivals.ts'), JSON.stringify(data));
     }
     await nikeNewArrivals();
+    module.exports = true;
 })();
-module.exports = { status };

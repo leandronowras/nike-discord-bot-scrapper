@@ -20,7 +20,7 @@ export class BrowserSingleton {
     return this.instance
   }
 
-  async init(HeadLess: boolean = true, SlowDown: number = 0, DevTools: boolean = false) {
+  async init(HeadLess: boolean = false, SlowDown: number = 0, DevTools: boolean = false) {
     this.browser = await this.startBrowser(HeadLess, SlowDown, DevTools)
   }
 

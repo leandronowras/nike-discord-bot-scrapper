@@ -1,21 +1,29 @@
+import fs from 'fs'
+import path from 'path'
 import { BrowserSingleton } from "./browser/BrowserSingleton"
-import { Monitor } from "./Monitor"
+import { NikeScrapper } from './Scrapper';
 
+let status = 'closed';
 (async () => {
-  const browser = BrowserSingleton.getInstance()
-  await browser.init()
-  const page = await browser.createPage("http://127.0.0.1:5500/designPatterns/comportamentais/observer/aula01/index.html")
+  const nike = BrowserSingleton.getInstance()
+  await nike.init()
+  const nikePage = await nike.createPage("https://www.nike.com.br/masculino/calcados")
+ 
 
-  const monitor = new Monitor(browser.html)
-
-
-  
-  async function checkUpdate() {
-    await monitor.update(page)
-    
-    console.log(monitor.html)
+  async function nikeNewArrivals() {
+    const scrapper = new NikeScrapper(await nikePage.content())
+    const data = scrapper.getNewArrivals()
+    fs.writeFileSync(path.resolve(__dirname, './../../../data/nikeNewArrivals.json'), JSON.stringify(data))
   }
-  
-  setInterval(checkUpdate, 7000)
 
-})()
+  await nikeNewArrivals();
+
+  async function monitor() {
+    // const monitor = new Monitor()
+  }
+
+  setInterval(monitor, 15000)
+ 
+})();
+
+module.exports = {status}
