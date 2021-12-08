@@ -29,18 +29,18 @@ export class BrowserSingleton {
       headless: HeadLess,
       devtools: DevTools,
       ignoreHTTPSErrors: true,
-      slowMo: SlowDown,
-      args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--disable-accelerated-2d-canvas',
-          '--no-first-run',
-          '--no-zygote',
-          '--disable-gpu'
-          // '--single-process' 
-          // '--user-data-dir=./'
-      ]
+      slowMo: SlowDown
+      // args: [
+      //     '--no-sandbox',
+      //     '--disable-setuid-sandbox',
+      //     '--disable-dev-shm-usage',
+      //     '--disable-accelerated-2d-canvas',
+      //     '--no-first-run',
+      //     '--no-zygote',
+      //     '--disable-gpu'
+      //     // '--single-process' 
+      //     // '--user-data-dir=./'
+      // ]
   });
   }
 
@@ -61,7 +61,7 @@ export class BrowserSingleton {
     //skips css fonts and images for performance and efficiency
     await page.setRequestInterception(true);
     page.on('request', (req) => {
-        if(req.resourceType() == 'font' || req.resourceType() == 'image' || req.resourceType() == 'stylesheet' ){
+        if(req.resourceType() == 'font' || req.resourceType() == 'stylesheet' ){
             req.abort();
         }
         else {

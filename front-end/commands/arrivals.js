@@ -9,6 +9,9 @@ module.exports = {
 	async execute(interaction) {
     const arrivals = fs.readFileSync(path.resolve(__dirname, './../../data/nikeNewArrivals.json'))
 
-		await interaction.reply(arrivals.toString());
+		// So retorna os 5 primeiros
+		const message = arrivals.toString().replaceAll(/{|}|"|\[|\]/gi, "")
+
+		await interaction.reply(message.replaceAll("--,", "\n"));
 	},
 };
